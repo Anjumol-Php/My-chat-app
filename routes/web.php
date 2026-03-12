@@ -3,10 +3,12 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\ProjectController;
 
 Route::get('/', function () {
     return view('welcome');
 });
+Route::resource('project', ProjectController::class)->middleware(['auth']);
 
 Route::get('/dashboard', [App\Http\Controllers\TestController::class, 'index'])
     ->middleware(['auth', 'verified'])
@@ -22,5 +24,4 @@ Route::middleware('auth')->group(function () {
     Route::get('/tasks/{task}/edit', [TestController::class, 'edit'])->name('tasks.edit');
     Route::put('/tasks/{task}', [TestController::class, 'update'])->name('tasks.update');
 });
-
 require __DIR__.'/auth.php';

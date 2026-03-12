@@ -71,6 +71,7 @@ class TestController extends Controller
     public function update(Request $request, Task $task)
     {
         \DB::enableQueryLog();
+        $this->authorize('update', $task);
         $request->validate([
             'title' => 'required',
             'category_ids' => 'nullable|array',
